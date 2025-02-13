@@ -1,0 +1,35 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 500px;
+}
+.toDoListContainer{
+  background-color: white;
+  padding: 1em;
+  border-radius: 5px;
+  width: 100%;
+  margin: 2em auto;
+  background-color: lightgray;
+  border: 0px solid;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+}
+.toDoListItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  
+}
+.toDoListHeader{
+  font-weight: bold;
+  font-size: 16px;
+  background-color: lightsteelblue;
+  width: 100%;
+}

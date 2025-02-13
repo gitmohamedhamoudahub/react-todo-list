@@ -55,8 +55,9 @@ function ToDoListItem({title,completed})
         <div><input className="txtTask" value={title} readOnly ></input></div>
         <div><button className="btnToDoEdit" onClick={handleEdit}>📝 Edit</button></div>
         <div><button className="btnToDoDelete" disabled={!DeleteEnabled}>🗑️ Delete</button></div>
-        
+            
     </div>
+    
     </>
     )
 }

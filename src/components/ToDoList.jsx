@@ -12,15 +12,15 @@ function ToDoList()
         
         <div className="toDoListContainer">
         
-        <div className="toDoListHeader">To Do List <hr></hr></div>
+        <div className="toDoListHeader">To Do List</div>
         
         <div className="txtAddContainer">
         <input type="text" placeholder="Add new task..." />
         <button>📋 Add </button>
-        <hr></hr>
         </div>
+        
         {ToDoListData.map((item, index) => (
-                    
+            
                     <ToDoListItem 
                     key={index} 
                     title={item.title} 

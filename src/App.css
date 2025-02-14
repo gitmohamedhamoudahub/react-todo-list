@@ -53,3 +53,9 @@ body{
   border:0px solid;
   background-color: transparent !important;
 }
+
+.txtTaskEditMode {
+  border: 1px solid #ccc; /* Visible border when editing */
+  background-color: white !important;
+  padding: 4px;
+}

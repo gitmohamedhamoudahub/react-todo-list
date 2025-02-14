@@ -1,60 +1,65 @@
 import {useState, useReducer } from "react";
 
-function ToDoListItem({title,completed})
+function ToDoListItem({toDo,dispatch})
 {
 
-    const [toDo, dispatch] = useReducer(reducer, {title,completed});
-    const [DeleteEnabled, setDeleteEnabled] = useState(completed);
+    // const [DeleteEnabled, setDeleteEnabled] = useState(toDo.completed);
+    const [isEditing, setIsEditing] = useState(false);
+    const [newTitle, setNewTitle] = useState(toDo.title);
+  
     
-     function reducer(state, action)
-     {
-        const ACTIONS = {
-            ADD: 'add',
-            DELETE: 'delete',
-            EDIT: 'edit',
-            SELECT: 'select'
-            }
-
-         switch(action.type)
-         {
-             case "SELECT":
-                 {
-                    console.log(DeleteEnabled);
-                    setDeleteEnabled((flag)=> flag = !flag);
-                    console.log(DeleteEnabled);
-                    return {...state, completed:!state.completed}};
-             case "EDIT":
-                 return {...state, title: action.title};
-             case "ADD":
-                 return {...state, title: action.title};
-             case "DELETE":
-                 return {...state, title: action.title};
-                default:
-                 return state;
-         }
-     }
-    function handleEdit()
-    {
-        dispatch({type: "EDIT", title: "New Title"})
-    }     
-    function handleSelect()
-    {
-        dispatch({type: "SELECT"})
-    }
+         
+    
     function handleCompleted()
     {
-        setDeleteEnabled((prev)=> !prev)
+        dispatch(
+            { 
+                type: "SELECT", 
+                payload: { 
+                    id: toDo.id, 
+                    completed: toDo.completed 
+                   } 
+            }
+        );
     }
-    console.log('completed = >',completed);
-    console.log('DeleteEnabled = >',DeleteEnabled);
+    
+    const handleEdit = () => {
+        setIsEditing(!isEditing);
+      if (isEditing) {
+        dispatch({ type: "EDIT", payload: { id: toDo.id, title:newTitle } });
+        setIsEditing(!isEditing);
+      }
+    };
+    // console.log('completed = >',completed);
+    // console.log('DeleteEnabled = >',DeleteEnabled);
     return(
     <>
     <div className="toDoListItem">
-        <div><input type="checkbox" onChange={handleCompleted} checked={DeleteEnabled}/></div>
+        <div><input 
+        type="checkbox" 
+        onChange={handleCompleted} 
+        checked={toDo.completed}/></div>
     
-        <div><input className="txtTask" value={title} readOnly ></input></div>
-        <div><button className="btnToDoEdit" onClick={handleEdit}>📝 Edit</button></div>
-        <div><button className="btnToDoDelete" disabled={!DeleteEnabled}>🗑️ Delete</button></div>
+        <div>
+        <input 
+        type="text"
+        className={`txtTask ${isEditing ? "txtTaskEditMode" : "txtTask"}`} 
+        value={newTitle}
+        readOnly={!isEditing}
+        onChange={(e) => setNewTitle(e.target.value)} 
+        >
+            </input></div>
+        <div>
+            <button className="btnToDoEdit" 
+            onClick={handleEdit}>  
+            {isEditing ? "✔ Save" : "📝 Edit"}
+            </button>
+            </div>
+        <div><button 
+        className="btnToDoDelete" 
+        disabled={!toDo.completed}  
+        onClick={() => dispatch({ type: "DELETE", payload: toDo.id })}>
+            🗑️ Delete</button></div>
             
     </div>
     

@@ -1,11 +1,47 @@
 import ToDoListItem from "./ToDoListItem.jsx";
 import {GetToDoListData} from "../data/ToDoListData.js"
-// import { useReducer } from "react";
+import { useReducer } from "react";
 function ToDoList()
 {
-   
+   function reducer(state, action)
+   {
+        switch (action.type) {
+          case "ADD":
+            return [
+              ...state,
+              { id: Date.now(), title: action.payload, isSelected: false }
+            ];
+      
+          case "DELETE":
+            {
+                console.log("DELETE: " + action.payload);
+                return state.filter(todo => todo.id !== action.payload);
+            }
+      
+          case "EDIT":
+            return state.map(todo =>
+              todo.id === action.payload.id
+                ? { ...todo, title: action.payload.newTitle }
+                : todo
+            );
+      
+          case "SELECT":
+            {
+            return state.map(todo =>
+              todo.id === action.payload.id
+                ? { ...todo, completed: !action.payload.completed }
+                : todo
+            );
+        }
+      
+          default:
+            return state;
+        }
+      }
+      
+      
     const ToDoListData = GetToDoListData();
-    // const [toDo, dispatch] = useReducer(reducer, [...ToDoListData]);
+    const [toDo, dispatch] = useReducer(reducer, [...ToDoListData]);
     console.log("ToDoList", ToDoListData);
     return(
         <>
@@ -19,12 +55,13 @@ function ToDoList()
         <button>📋 Add </button>
         </div>
         
-        {ToDoListData.map((item, index) => (
+        {toDo.map((item, index) => (
             
                     <ToDoListItem 
                     key={index} 
-                    title={item.title} 
-                    completed={item.completed} 
+                    toDo={item}
+                    dispatch={dispatch} 
+                     
                     />
                 ))}
         </div>

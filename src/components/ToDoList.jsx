@@ -14,17 +14,20 @@ function ToDoList()
       
           case "DELETE":
             {
-                console.log("DELETE: " + action.payload);
-                return state.filter(todo => todo.id !== action.payload);
+                console.log("DELETE: " + action.payload.id);
+                return state.filter(todo => todo.id !== action.payload.id);
+                    
             }
       
           case "EDIT":
+            {
+                console.log("EDIT: " + action.payload.id, action.payload.title);
             return state.map(todo =>
               todo.id === action.payload.id
-                ? { ...todo, title: action.payload.newTitle }
+                ? { ...todo, title: action.payload.title }
                 : todo
             );
-      
+        }
           case "SELECT":
             {
             return state.map(todo =>
@@ -39,10 +42,10 @@ function ToDoList()
         }
       }
       
-      
-    const ToDoListData = GetToDoListData();
-    const [toDo, dispatch] = useReducer(reducer, [...ToDoListData]);
-    console.log("ToDoList", ToDoListData);
+
+    
+    const [toDo, dispatch] = useReducer(reducer, [...GetToDoListData()]);
+    // console.log("ToDoList", ToDoListData);
     return(
         <>
         
@@ -55,10 +58,10 @@ function ToDoList()
         <button>📋 Add </button>
         </div>
         
-        {toDo.map((item, index) => (
+        {toDo.map((item) => (
             
                     <ToDoListItem 
-                    key={index} 
+                    key={item.id}
                     toDo={item}
                     dispatch={dispatch} 
                      

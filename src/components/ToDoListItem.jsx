@@ -6,7 +6,7 @@ function ToDoListItem({toDo,dispatch})
     // const [DeleteEnabled, setDeleteEnabled] = useState(toDo.completed);
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(toDo.title);
-  
+    
     
          
     
@@ -26,12 +26,10 @@ function ToDoListItem({toDo,dispatch})
     const handleEdit = () => {
         setIsEditing(!isEditing);
       if (isEditing) {
-        dispatch({ type: "EDIT", payload: { id: toDo.id, title:newTitle } });
+        dispatch({ type: "EDIT", payload: { id: toDo.id, title: newTitle } });
         setIsEditing(!isEditing);
       }
     };
-    // console.log('completed = >',completed);
-    // console.log('DeleteEnabled = >',DeleteEnabled);
     return(
     <>
     <div className="toDoListItem">
@@ -58,7 +56,9 @@ function ToDoListItem({toDo,dispatch})
         <div><button 
         className="btnToDoDelete" 
         disabled={!toDo.completed}  
-        onClick={() => dispatch({ type: "DELETE", payload: toDo.id })}>
+        onClick={() => dispatch({ type: "DELETE", payload: { id: toDo.id} })}
+        
+        >
             🗑️ Delete</button></div>
             
     </div>

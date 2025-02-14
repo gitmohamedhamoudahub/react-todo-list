@@ -44,6 +44,7 @@ function ToDoListItem({toDo,dispatch})
         className={`txtTask ${isEditing ? "txtTaskEditMode" : "txtTask"}`} 
         value={newTitle}
         readOnly={!isEditing}
+        
         onChange={(e) => setNewTitle(e.target.value)} 
         >
             </input></div>

@@ -1,16 +1,30 @@
 import ToDoListItem from "./ToDoListItem.jsx";
 import {GetToDoListData} from "../data/ToDoListData.js"
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 function ToDoList()
 {
+
+    const [toDo, dispatch] = useReducer(reducer, 
+        [...GetToDoListData()].sort(function(a, b){return b.id - a.id}));
+
+    const[addedItem, setAddedItem]= useState('');
+
    function reducer(state, action)
    {
         switch (action.type) {
           case "ADD":
-            return [
-              ...state,
-              { id: Date.now(), title: action.payload, isSelected: false }
-            ];
+            {
+                if(action.payload.title.trim() == '' ) return state;
+                console.log('ADDING',action.payload);
+                return  [{
+                    userId: action.payload.userId, 
+                    id: action.payload.id, 
+                    title: action.payload.title, 
+                    completed: action.payload.completed,
+                    },
+                    ...state ]
+                    
+        }
       
           case "DELETE":
             {
@@ -44,8 +58,17 @@ function ToDoList()
       
 
     
-    const [toDo, dispatch] = useReducer(reducer, [...GetToDoListData()]);
-    // console.log("ToDoList", ToDoListData);
+    
+    function handleAdd(title)
+    {
+        dispatch({ type: "ADD", payload: { 
+            userId: 1,
+            id: toDo.length + 1,
+            title: addedItem,
+            completed: false
+        } });
+        setAddedItem('');
+    }
     return(
         <>
         
@@ -54,8 +77,12 @@ function ToDoList()
         <div className="toDoListHeader">To Do List</div>
         
         <div className="txtAddContainer">
-        <input type="text" placeholder="Add new task..." />
-        <button>📋 Add </button>
+        <input 
+        type="text" 
+        onChange={(e) => setAddedItem(e.target.value)} 
+        value={addedItem}
+        placeholder="Add new task..." />
+        <button onClick={handleAdd}>📋 Add </button>
         </div>
         
         {toDo.map((item) => (

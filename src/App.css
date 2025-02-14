@@ -19,7 +19,7 @@ body{
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-
+  border: 3px solid gold;
 }
 .toDoListItem{
   display: flex;
@@ -47,6 +47,7 @@ body{
   background-color: white;
   margin: 10px;
   border-radius: 5px;
+  border: 2px solid gold;
 }
 
 .txtTask{
@@ -58,4 +59,23 @@ body{
   border: 1px solid #ccc; /* Visible border when editing */
   background-color: white !important;
   padding: 4px;
+  border: 2px solid brown;
+  border-radius: 7px;
+  /* width : 200px; */
+}
+
+button{
+  border: 1px solid #505050;
+  border-radius: 7px;
+  height:25px;
+  width: 75px;
+  color: white;
+  background-color: black;
+  opacity: 50%
+}
+button:hover{
+  opacity: 70%;
+  color: gold;
+  cursor: pointer;
+
 }

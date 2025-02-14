@@ -74,15 +74,18 @@ function ToDoList()
         
         <div className="toDoListContainer">
         
-        <div className="toDoListHeader">To Do List</div>
+        <div className="toDoListHeader">📋 ToDo List 📋</div>
         
         <div className="txtAddContainer">
+        
         <input 
         type="text" 
         onChange={(e) => setAddedItem(e.target.value)} 
         value={addedItem}
         placeholder="Add new task..." />
-        <button onClick={handleAdd}>📋 Add </button>
+        
+        <button onClick={handleAdd}>➕ Add </button>
+        
         </div>
         
         {toDo.map((item) => (
